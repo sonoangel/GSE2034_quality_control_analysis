@@ -56,3 +56,30 @@ Python · Pandas · SciPy · Statsmodels · Matplotlib · Seaborn
 
 ### Next step
 ML model to predict bone relapse using the 35 DEGs as features
+
+## Proyecto 4: PCA and Clustering — GSE2034
+
+Unsupervised analysis to discover molecular subgroups in 286 breast
+cancer patients and validate their clinical relevance.
+
+### What this project does
+- StandardScaler normalization of 16,712 gene expression values
+- PCA reducing dimensions from 16,712 to 50 components
+- Comparison: PCA with all genes vs only 35 DEGs
+- Optimal K selection using elbow method and silhouette score
+- K-means clustering vs clinical bone relapse labels
+
+### Key results
+- PC1 explains 7.1%, PC2 5.4% of variance (expected for tumor data)
+- PC1 explains 62.3% of variance when using only the 35 DEGs
+- K=3 optimal clusters identified (silhouette score = 0.165)
+- Cluster 1 (n=115): 38.3% bone relapse rate — HIGH RISK
+- Cluster 2 (n=57):   8.8% bone relapse rate — LOW RISK  
+- Cluster 3 (n=114): 17.5% bone relapse rate — INTERMEDIATE RISK
+- Dataset average: 24.1% bone relapse rate
+
+### Technologies
+Python · scikit-learn · PCA · KMeans · Matplotlib · Seaborn
+
+### Next step
+Week 3: ML classification model to predict bone relapse
