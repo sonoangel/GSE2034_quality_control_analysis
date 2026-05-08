@@ -1,0 +1,10 @@
+metrica,valor
+Pacientes analizados,286
+Genes usados (PCA),16712
+Varianza PC1,7.14%
+Varianza PC2,5.40%
+Varianza PC1+PC2,12.53%
+Varianza PC1-PC10,30.94%
+K óptimo (silhouette),3
+Silhouette score óptimo,0.1645
+DEGs usados en PCA2,35
