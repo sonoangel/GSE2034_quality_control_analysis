@@ -1,85 +1,67 @@
-## Proyecto 2: Gene Expression Quality Control — GSE2034
+# Breast Cancer Bone Relapse — Bioinformatics Analysis
 
-Analysis of a real breast cancer gene expression dataset from NCBI GEO.
+Complete bioinformatics analysis of gene expression data from 286
+breast cancer patients to identify molecular predictors of bone relapse.
 
-**Dataset:** GSE2034 — 286 breast cancer patients, 22,283 genes measured  
-**Source:** NCBI Gene Expression Omnibus (used in 500+ published papers)
-
-### What this project does
-- Downloads GSE2034 directly from GEO using GEOparse
-- Applies log2 transformation to normalize expression values
-- Detects outlier samples using ±2 standard deviation threshold
-- Filters low-variability genes (removes bottom 25% by std)
-- Generates QC visualizations following bioinformatics paper standards
-
-### Key results
-- 286 samples — no outliers detected (high quality dataset)
-- 22,283 genes → 16,712 after QC filtering
-- Expression range after log2: 2.14 — 14.93
-
-### Technologies
-Python · GEOparse · Pandas · NumPy · Matplotlib · Seaborn · SciPy
+**Dataset:** GSE2034 — Wang et al. 2005, The Lancet  
+**Source:** NCBI Gene Expression Omnibus  
+**Tools:** Python · Pandas · SciPy · scikit-learn · Matplotlib · Seaborn
 
 ---
 
-## Proyecto 3: Differential Expression Analysis — GSE2034
+## Project Structure
 
-Identified genes associated with bone relapse in breast cancer
-using 286 primary tumor samples from NCBI GEO.
+### 📊 Project 1 — Quality Control
+`GSE2034_quality_control.ipynb`
+- Downloads GSE2034 from NCBI GEO
+- log2 normalization of 22,283 genes
+- Outlier detection and low-variability gene filtering
+- **Result:** 16,712 informative genes, 0 outlier samples
 
-**Dataset:** GSE2034 — same cohort as Project 2, now analyzed for
-bone relapse prediction using primary tumor gene expression.
+### 🧬 Project 2 — Differential Expression Analysis  
+`GSE2034_differential_expression.ipynb`
+- t-test across 16,712 genes + Benjamini-Hochberg FDR correction
+- Volcano plot and heatmap of top 30 DEGs
+- **Result:** 35 DEGs (7 up, 28 down in bone relapse)
 
-**Biological context:** RNA was extracted from primary breast tumors
-at surgery — before any relapse occurred. The genes found were already
-altered at diagnosis, making them potential early predictive markers.
+### 🔵 Project 3 — PCA and Clustering
+`GSE2034_PCA_clustering.ipynb`
+- PCA reducing 16,712 dimensions to 2 components
+- K-means clustering with optimal K selection
+- **Result:** 3 molecular subgroups with different relapse rates
+  - Cluster 1 (n=115): **38.3% relapse — HIGH RISK**
+  - Cluster 2 (n=57):  **8.8% relapse — LOW RISK**
+  - Cluster 3 (n=114): **17.5% relapse — INTERMEDIATE**
 
-### What this project does
-- Separates 286 patients into bone relapse (n=69) vs no relapse (n=217)
-- Runs t-test for each of the 16,712 filtered genes
-- Applies Benjamini-Hochberg FDR correction to control false positives
-- Filters DEGs with FDR < 0.05 and |log2FC| > 1
-- Generates volcano plot and heatmap of top 30 DEGs
+### 🔬 Project 4 — Complete Integrated Analysis
+`GSE2034_complete_analysis.ipynb`
+- End-to-end pipeline: QC → DEG → PCA → Clustering
+- Single reproducible notebook with all analyses
 
-### Key results
-- 35 differentially expressed genes identified
-- 28 downregulated in bone relapse — putative tumor suppressors silenced
-- 7 upregulated — candidate progression markers
-- Most significant gene: 214777_at (FDR = 0.005)
+---
 
-### Visualizations
-- `volcano_plot.png` — significance vs fold change for all 16,712 genes
-- `heatmap_DEGs.png` — expression signature of top 30 DEGs across 286 patients
+## Key Visualizations
 
-### Technologies
-Python · Pandas · SciPy · Statsmodels · Matplotlib · Seaborn
+| Analysis | File |
+|----------|------|
+| QC distribution | qc_distribucion.png |
+| Volcano plot | volcano_plot.png |
+| DEG heatmap | heatmap_DEGs.png |
+| PCA patients | pca_pacientes.png |
+| Molecular clusters | clustering_final.png |
 
-### Next step
-ML model to predict bone relapse using the 35 DEGs as features
+---
 
-## Proyecto 4: PCA and Clustering — GSE2034
+## How to Run
 
-Unsupervised analysis to discover molecular subgroups in 286 breast
-cancer patients and validate their clinical relevance.
+```bash
+pip install pandas numpy matplotlib seaborn scipy scikit-learn statsmodels
+jupyter notebook
+```
 
-### What this project does
-- StandardScaler normalization of 16,712 gene expression values
-- PCA reducing dimensions from 16,712 to 50 components
-- Comparison: PCA with all genes vs only 35 DEGs
-- Optimal K selection using elbow method and silhouette score
-- K-means clustering vs clinical bone relapse labels
+Download GSE2034_series_matrix.txt.gz from:
+https://ftp.ncbi.nlm.nih.gov/geo/series/GSE2nnn/GSE2034/matrix/
 
-### Key results
-- PC1 explains 7.1%, PC2 5.4% of variance (expected for tumor data)
-- PC1 explains 62.3% of variance when using only the 35 DEGs
-- K=3 optimal clusters identified (silhouette score = 0.165)
-- Cluster 1 (n=115): 38.3% bone relapse rate — HIGH RISK
-- Cluster 2 (n=57):   8.8% bone relapse rate — LOW RISK  
-- Cluster 3 (n=114): 17.5% bone relapse rate — INTERMEDIATE RISK
-- Dataset average: 24.1% bone relapse rate
+---
 
-### Technologies
-Python · scikit-learn · PCA · KMeans · Matplotlib · Seaborn
-
-### Next step
-Week 3: ML classification model to predict bone relapse
+*Biological Engineer specializing in Bioinformatics + AI*
